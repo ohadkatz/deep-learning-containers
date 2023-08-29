@@ -1,0 +1,16 @@
+---
+release_images:
+  1:
+    framework: "qualcomm_pytorch"
+    version: "2.0.1"
+    arch_type: "x86"
+    customer_type: "ec2"
+    inference:
+      device_types: ["gpu"]
+      python_versions: ["py39"]
+      os_version: "ubuntu20.04"
+      qnn_version: "qnn1.0"
+      qai_sdk_version: "1.10"
+      example: False        
+      disable_sm_tag: False
+      force_release: False

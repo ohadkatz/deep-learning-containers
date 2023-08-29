@@ -92,6 +92,8 @@ FRAMEWORK_FIXTURES = (
     "pytorch_trcomp_training",
     # Autogluon
     "autogluon_training",
+    # Qualcomm
+    "qualcomm_pytorch_inference",
     # Processor fixtures
     "gpu",
     "cpu",
@@ -1017,6 +1019,9 @@ def pt15_and_above_only():
 def pt14_and_above_only():
     pass
 
+@pytest.fixture(scope="session")
+def qai():
+    pass
 
 @pytest.fixture(scope="session")
 def outside_versions_skip():
@@ -1349,6 +1354,16 @@ def pytest_generate_tests(metafunc):
                     ):
                         LOGGER.info(
                             f"Skipping test, as this function is not marked as 'stabilityai'"
+                        )
+                        continue
+                        
+                    if (
+                        "qualcomm" not in metafunc.fixturenames
+                        and "qualcomm" in image
+                        and os.getenv("TEST_TYPE") != "sanity"
+                    ):
+                        LOGGER.info(
+                            f"Skipping test, as this function is not marked as 'qualcomm'"
                         )
                         continue
                     if not framework_version_within_limit(metafunc, image):
